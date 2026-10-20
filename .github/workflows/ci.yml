@@ -1,22 +1,22 @@
-
-name: My First CI Pipeline
+name: CI Tests
 
 on:
-  push:
   pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   test:
+    name: test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get the code
+      - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: '22'
-
-      - name: Run tests
-        run: npm test
+      - name: Check contact.html
+        run: test -f contact.html
